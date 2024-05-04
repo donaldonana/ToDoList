@@ -1,0 +1,67 @@
+
+{% extends '_partials/base.html' %}
+
+{% block header %}
+
+<title>To Do Details</title>
+
+{% endblock %}
+
+{% load static %}
+
+
+{% block content %}
+
+<div class=" row row-cols-1 row-cols-md-2 row-cols-lg-3 service-items" id="items" 
+style="text-align: center;
+        margin-top: 50px;
+        margin-left: 40px;
+        margin-right: 40px;
+        margin-bottom: 30px;">
+
+<h2 class="ui header">To Do Details</h2>
+{% include '_partials/messages.html' %}
+
+<div class="ui container centered-card"  
+style="text-align: center;
+        
+        display: flex;
+      justify-content: center;
+      align-items: center;">
+
+<div class="ui card" style="margin-top: 50px; margin-bottom: 60px;">
+    <div class="content">
+      <div class="header">{{todo.title}} </div>
+      <div class="description">
+         <strong> Description </strong> :  <p>  {{todo.description}} </p>   
+         <strong> Create At </strong> : <p> {{todo.created_at}} </p>
+      </div>
+    </div>
+    <div class="extra content"> 
+      {% if todo.is_completed%}
+          
+          <p>
+          <i class="check icon green"></i>
+      
+          Completed at {{todo.updated_at}}
+          </p>
+
+          {% else %}
+          <p>
+
+            No yet completed
+
+            </p>
+      {% endif %}
+      <a  href={% url 'todo-edit' todo.pk %} class="ui button primary"><i class="pencil icon"></i></a>  
+      <a href={% url 'todo-delete' todo.id %} class="ui button red"><i class="trash icon"></i></a>
+    </div>
+
+</div>
+</div>
+
+</div>
+{% include '_partials/footer.html' %} 
+
+{% endblock content %}
+

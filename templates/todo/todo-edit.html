@@ -1,0 +1,70 @@
+{% extends '_partials/base.html' %}
+
+{% block title %}
+
+Edit Todo
+
+{% endblock %}
+
+
+{% block content %}
+
+    
+     
+    
+<div class=" row row-cols-1 row-cols-md-2 row-cols-lg-3 service-items" id="items" 
+style=" margin-top: 50px;
+        margin-left: 40px;
+        margin-right: 40px;
+        margin-bottom: 30px;">
+    
+    <h3 style="text-align: center;"> Edit To Do </h3>
+    {% if error %}
+    <p style="color : red; font-size: 12px; text-align: center;" id=""> 
+        {{error}}.
+    </p>
+    {% endif %}
+
+
+    <form class="ui form" method="POST" action={% url 'todo-edit' todo.id   %}>
+        {% csrf_token %}
+
+            <div class="field">
+              <label>Title : </label>
+              <input type="text" name="title" placeholder="title" value="{{todo.title}}">
+            </div>
+            <div class="field">
+              <label>Description : </label>
+              <textarea name="descriptions">{{todo.description}}</textarea>
+            </div>
+
+            {% if todo.is_completed%}
+          
+            <div class="ui slider checkbox checked">
+                <input type="checkbox" name="is_completed" checked="checked">
+                <label>Completed</label>
+            </div> <br><br>
+
+            {% else %}
+
+            <div class="ui slider checkbox">
+                <input type="checkbox" name="is_completed">
+                <label>Completed</label>
+            </div> <br><br>
+
+            {% endif %}
+            
+           
+             
+        <input style="text-align: center;"  type="submit" class="small ui button primary" value="Save">
+    </form>
+
+
+</div>
+
+{% include '_partials/footer.html' %} 
+
+
+  
+    
+    {% endblock content %}

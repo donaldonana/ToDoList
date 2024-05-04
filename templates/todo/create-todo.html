@@ -1,0 +1,63 @@
+{% extends '_partials/base.html' %}
+
+{% block title %}
+
+Create Noeuds
+
+{% endblock %}
+
+
+{% load static %}
+
+
+
+{% block content %}
+
+    
+    <!-- <form class="ui form" method="POST" action={% url 'create-todo'  %}>
+        {% csrf_token %}
+
+        {{form.as_p}}
+
+        <input type="submit" class="ui button primary" value="Submit">
+    </form> -->
+
+
+
+<div class=" row row-cols-1 row-cols-md-2 row-cols-lg-3 service-items" id="items" 
+style=" margin-top: 50px;
+        margin-left: 40px;
+        margin-right: 40px;
+        margin-bottom: 30px;">
+    
+    <h3 style="text-align: center;"> Create To Do </h3>
+    {% if error %}
+    <p style="color : red; font-size: 12px; text-align: center;" id=""> 
+        {{error}}.
+    </p>
+    {% endif %}
+
+
+    <form class="ui form" method="POST" action="#">
+        {% csrf_token %}
+
+            <div class="field">
+              <label>Title : </label>
+              <input type="text" name="title" placeholder="title" value="">
+            </div>
+            <div class="field">
+              <label>Description : </label>
+              <textarea name="descriptions"></textarea>
+            </div>
+             
+        <input style="text-align: center;"  type="submit" class="ui button primary" value="Save">
+    </form>
+
+
+</div>
+
+{% include '_partials/footer.html' %} 
+
+  
+{% endblock content %}
+

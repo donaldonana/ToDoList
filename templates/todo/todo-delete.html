@@ -1,0 +1,55 @@
+{% extends '_partials/base.html' %}
+{% block title %}
+
+Delete Todo
+
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<div class=" row row-cols-1 row-cols-md-2 row-cols-lg-3 service-items" id="items" 
+style="text-align: center;
+        margin-top: 150px;
+        margin-left: 40px;
+        margin-right: 40px;
+        margin-bottom: 30px;">
+
+<h2 class="ui header">Delete To Do</h2>
+{% include '_partials/messages.html' %}
+
+<form method="POST"  action={% url 'todo-delete' todo.id %} class="ui form">
+    {% csrf_token %}
+    <p>Are you sure you want to delete this todo?</p>
+
+
+    <div class="ui buttons">
+        <!-- <button >Cancel</button> -->
+        <a class="ui button" href={% url 'todo' todo.id %}>Cancel</a>
+        <div class="or"></div>
+        <!-- <button class="">Yes</button> -->
+        <input type="submit" class="ui button negative" value="YES">
+
+    </div>
+
+</form>
+
+    
+
+</div>
+</div>
+
+</div>
+{% include '_partials/footer.html' %} 
+
+
+    
+   
+
+  
+
+  
+    
+    {% endblock content %}

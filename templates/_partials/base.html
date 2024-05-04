@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
+    
+        {%block header%}
+
+            
+        {%endblock%}
+</head>
+<body>
+
+    <div class="ui two item menu" style="margin-top: 5px; background-color: ghostwhite;">
+        <a  href={% url 'home' %} class="item" >View</a>
+        <a href={% url 'create-todo' %} class="item">Create</a>
+    </div>
+
+    {% block content%}
+
+
+    {% endblock content%}
+
+
+
+    {%block javascript%}
+
+    <script>
+        $(document).ready(function() {
+            // messages timeout for 10 sec 
+            setTimeout(function() {
+                $('.info').fadeOut('slow');
+            }, 3000); // <-- time in milliseconds, 1000 =  1 sec
+    
+            // delete message
+            $('.del-msg').live('click',function(){
+                
+                $('.del-msg').parent().attr('style', 'display:none;');
+            })
+
+            $('select.dropdown').dropdown();
+
+
+        });            
+
+        </script>
+    {%endblock javascript%}
+</body>
+
+</html>

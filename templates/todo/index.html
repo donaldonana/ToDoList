@@ -1,0 +1,149 @@
+{% extends "_partials/base.html" %} 
+{% load static %}
+
+{%block header%}
+
+        <title> To Do List </title>
+{%endblock%}
+
+
+
+
+
+  {% block content %}
+
+    <div class=" row row-cols-1 row-cols-md-2 row-cols-lg-3 service-items" id="items" 
+    style="text-align: center;
+            margin-top: 50px;
+            margin-left: 40px;
+            margin-right: 40px;
+            margin-bottom: 30px;">
+    
+    <h2> My To Do List </h2>
+    <!-- <a href='/plugins/bd_schema_plugin/create' class="ui primary button">Create</a> -->
+    {% include '_partials/messages.html' %}
+    
+    <table class="ui table ">
+        {% if page_obj %}
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th class="center aligned">Description</th>
+                <th class="center aligned">Completed</th>
+                <th class="center aligned">Actions</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+    
+            {% for todo in page_obj %}
+            <tr>
+                
+                <td>{{todo.title}}</td>
+                <td class="center aligned">{{todo.description}}</td>
+
+            <td class="center aligned">
+                {% if todo.is_completed %}
+
+                 <i class="check icon green"></i>
+
+                {% else %}
+                No
+                
+                
+              {% endif %}
+            
+            
+            </td>
+
+            <td class="center aligned">
+
+                <a href={% url 'todo' todo.pk %} class="ui button">
+                    <i class="eye icon"></i>
+                </a>
+
+
+                <a href={% url 'todo-edit' todo.pk %}  class="ui button">
+                    <i class="pencil icon"></i>
+                </a>
+                <!-- <a href={% url 'todo-delete' todo.id %} class="ui button">
+                    <i class="trash icon"></i>
+                </a> -->
+            </td>
+    
+            </tr>
+    
+            {% endfor %}
+                
+              
+    
+        </tbody>
+        <!-- <th colspan="5">
+            <div class="ui right floated pagination menu" style="margin: 25px;">
+              <a class="icon item">
+                <i class="left chevron icon"></i>
+              </a>
+              <a class="item">1</a>
+              <a class="item">2</a>
+              <a class="item">3</a>
+              <a class="item">4</a>
+              <a class="icon item">
+                <i class="right chevron icon"></i>
+              </a>
+            </div>
+        </th> -->
+     
+      </table>
+      {% block pagination %}
+      <div class="ui right floated pagination">
+        {% if page_obj.has_previous %}
+            <a href="/1">
+                <i class="angle double left icon"></i>  
+            </a>
+            <a href="/{{page_obj.previous_page_number}}">
+                <i class="left chevron icon"></i> 
+            </a> 
+        {% endif%}
+    
+        <a class="item">{{page_obj.number}} of {{page_obj.paginator.num_pages}}</a>
+    
+        {% if page_obj.has_next %}
+            <a href="/{{page_obj.next_page_number}}">
+                <i class="right chevron icon"></i>  
+            </a>
+            <a href="/{{page_obj.paginator.num_pages}}">
+                <i class="angle double right icon"></i>  
+            </a>
+        {% endif%}
+    
+        <hr>
+    
+        {% for page_number in page_obj.paginator.page_range %}
+            <a
+                href="/{{page_number}}"
+                class="{% if page_number == page_obj.number %}current{% endif %} item"
+            >
+                {{page_number}}
+            </a>
+        {% endfor %}
+    
+    </div>
+    {% endblock %}
+    
+    {% else %}
+    
+      <div class="ui message">
+        <div class="header">
+            No items yet
+        </div>
+        <p>You can create your node now </p>
+      </div>
+    
+    {% endif %}
+    </div>
+    
+    {% include '_partials/footer.html' %} 
+    
+    
+    
+    {% endblock content %}

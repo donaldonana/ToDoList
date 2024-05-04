@@ -1,0 +1,22 @@
+{% if messages %}
+
+
+{% for message in messages %}
+
+
+<div class="ui {{message.tags}} message info">
+
+    {{message}}
+    <!-- <a href="#" class="del-msg" style="left: 85%; position: relative;">&times;</a> -->
+
+
+</div>
+
+
+
+{% endfor %}
+
+
+
+
+{% endif %}
