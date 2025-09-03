@@ -22,7 +22,7 @@ def get_showing_todos(request, todos):
 
 
 
-# @login_required
+@login_required
 def index(request, page=1):
     
     todos = Todo.objects.filter(owner=request.user)
@@ -34,7 +34,7 @@ def index(request, page=1):
     context = {"page_obj": page_object}
     return render(request, 'todo/index.html', context)
 
-# @login_required
+@login_required
 def create_todo(request):
     # form = TodoForm()
     # context = {'form': form}
@@ -42,15 +42,13 @@ def create_todo(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         description = request.POST.get('descriptions')
-        # is_completed = request.POST.get('is_completed', False)
         is_completed = False
-
 
         todo = Todo()
 
         todo.title = title
         todo.description = description
-        print(f"---------------- {request.POST.get('descriptions')} ----------------")
+        # print(f"---------------- {request.POST.get('descriptions')} ----------------")
         todo.is_completed = True if is_completed == "on" else False
         todo.owner = request.user
         todo.save()
@@ -61,14 +59,14 @@ def create_todo(request):
 
     return render(request, 'todo/create-todo.html')
 
-# @login_required
+@login_required
 def todo_detail(request, id):
     todo = get_object_or_404(Todo, pk=id)
     context = {'todo': todo}
     return render(request, 'todo/todo-detail.html', context)
 
 
-# @login_required
+@login_required
 def todo_delete(request, id):
     todo = get_object_or_404(Todo, pk=id)
     context = {'todo': todo}
@@ -101,9 +99,7 @@ def todo_edit(request, id):
         if todo.owner == request.user:
             todo.save()
 
-        messages.add_message(request, messages.SUCCESS, "Todo update success"
-
-                             )
+        messages.add_message(request, messages.SUCCESS, "Todo update success")
 
         return HttpResponseRedirect(reverse("todo", kwargs={'id': todo.pk}))
 

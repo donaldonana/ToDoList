@@ -15,10 +15,10 @@
 </head>
 <body>
 
-    <div class="ui two item menu" style="margin-top: 5px; background-color: ghostwhite;">
-        <a  href={% url 'home' %} class="item" >View</a>
+    {% comment %} <div class="ui two item menu" style="margin-top: 20px; background-color: #527496ff;">
+        <a  href={% url 'home' %} class="item" >View</a> 
         <a href={% url 'create-todo' %} class="item">Create</a>
-    </div>
+    </div> {% endcomment %}
 
     {% block content%}
 

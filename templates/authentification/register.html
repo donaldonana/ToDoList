@@ -1,59 +1,104 @@
-{% extends "_partials/base.html" %} {% block content %} {% load static %}
+{% extends "_partials/base.html" %} 
 
-<div class="ui grid">
-  <div class="four wide column"></div>
-  <div class="eight wide column">
-    <div class="ui middle aligned center aligned grid">
-      <div class="column mt-5">
-        <h2 class="ui teal image header">
-          <img src={% static 'img/Logo.png' %} class="image" />
-          <div class="content">Registration</div>
-        </h2>
+{% load static %}
 
-          {% include '_partials/messages.html'%}
+{% block header %}
 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDoList Regitering</title>
+    <link rel="stylesheet"  href="{% static 'css/styles.css' %}">
 
-        <form class="ui large form" method="post" action={% url 'register' %}>
-          {% csrf_token %}
-          <div class="ui stacked segment">
-            <div class="field">
-              <div class="ui left icon input">
-                <i class="user icon"></i>
-                <input type="text" name="username" value="{{data.username}}"  placeholder="Username" />
-              </div>
-            </div>
+{% endblock header %}
 
-            <div class="field">
-              <div class="ui left icon input">
-                <i class="user icon"></i>
-                <input type="text" name="email" value="{{data.email}}" placeholder="E-mail address" />
-              </div>
-            </div>
-            <div class="field">
-              <div class="ui left icon input">
-                <i class="lock icon"></i>
-                <input type="password" name="password" placeholder="Password" />
-              </div>
-            </div>
+{% block content %} 
 
-            <div class="field">
-              <div class="ui left icon input">
-                <i class="lock icon"></i>
-                <input
-                  type="password"
-                  name="password2"
-                  placeholder="Repeat Password"
-                />
-              </div>
-            </div>
-            <button class="ui fluid large teal submit button">Submit</button>
-          </div>
-
-        </form>
-
-        <div class="ui message">Have an account? <a href={% url 'login'  %}>Login</a></div>
-    <div class="four wide column"></div>
+<div class="auth-wrapper-sigup">
+  <div style =  "text-align: center;">
+        <img src="{% static 'img/liste.png' %}" style="width: 110px; height: auto;">
+        <h2 style="color: black; ">~ToDoList~</h2>
   </div>
+
+<div class="signup-container" >
+    
+        <div class="login-card">
+            <div class="login-header">
+                <h2>Sign Up</h2>
+                <p>Enter your account details</p>
+            </div>
+            
+            <form class="login-form" id="loginForm" novalidate>
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <input type="email" id="email" name="email" required autocomplete="email">
+                        <label for="email">Email</label>
+                    </div>
+                    <span class="error-message" id="emailError"></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <input type="email" id="email" name="email" required autocomplete="email">
+                        <label for="email">User Name</label>
+                    </div>
+                    <span class="error-message" id="emailError"></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <input type="password" id="password" name="password" required autocomplete="current-password">
+                        <label for="password">Password</label>
+                        <button type="button" class="password-toggle" id="passwordToggle" aria-label="Toggle password visibility">
+                            <span class="toggle-icon"></span>
+                        </button>
+                    </div>
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <input type="password" id="password" name="password" required autocomplete="current-password">
+                        <label for="password">Confirm Password</label>
+                        <button type="button" class="password-toggle" id="passwordToggle" aria-label="Toggle password visibility">
+                            <span class="toggle-icon"></span>
+                        </button>
+                    </div>
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+
+                <div class="form-options">
+                    <div class="remember-wrapper">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember" class="checkbox-label">
+                            <span class="checkmark"></span>
+                            Remember me
+                        </label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    <span class="btn-text">Sign Up</span>
+                    <span class="btn-loader"></span>
+                </button>
+            </form>
+
+            <div class="signup-link">
+                <p>Don't have an account? <a href="#">Create one</a></p>
+            </div>
+
+            <div class="success-message" id="successMessage">
+                <div class="success-icon">✓</div>
+                <h3>Welcome back!</h3>
+                <p>Redirecting to your dashboard...</p>
+            </div>
+        </div>
+    </div>
+
 </div>
 
-{% endblock content %}
+  <script  src="{% static 'js/form-utils.js' %}"></script>
+  <script  src="{% static 'js/script.js' %}"></script>
+ 
+
+  {% endblock content %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from validate_email import validate_email
+# from validate_email import validate_email
 from .models import User
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
@@ -13,6 +13,9 @@ from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeErr
 from django.core.mail import EmailMessage
 from django.conf import settings
 import threading
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -79,33 +82,49 @@ def register(request):
     return render(request, 'authentification/register.html')
 
 
+# def login_user(request):
+
+#     if request.method == 'POST':
+#         context = {'data': request.POST}
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+
+#         user = authenticate(request, username=username, password=password)
+ 
+#         if not user:
+#             messages.add_message(request, messages.ERROR,
+#                                  'Invalid credentials, try again')
+#             return render(request, 'authentification/login.html', context, status=401)
+
+#         login(request, user)
+
+#         messages.add_message(request, messages.SUCCESS,
+#                              f'Welcome {user.username}')
+
+#         return redirect(reverse('home'))
+
+#     return render(request, 'authentification/login.html')
+
+# @csrf_exempt
 def login_user(request):
+    
+    
+    if request.method == "POST":
+        data = json.loads(request.body)
+        email = data.get("email")
+        password = data.get("password")
 
-    if request.method == 'POST':
-        context = {'data': request.POST}
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+        user = authenticate(request, username=email, password=password)
+        
+        if user is not None:
+            login(request, user)
+            return JsonResponse({"success": True})
+        else:
+            return JsonResponse({"success": False, "message": "Invalid credentials"})
 
-        user = authenticate(request, username=username, password=password)
-
-        # if user and not user.is_email_verified:
-        #     messages.add_message(request, messages.ERROR,
-        #                          'Email is not verified, please check your email inbox')
-        #     return render(request, 'authentification/login.html', context, status=401)
-
-        if not user:
-            messages.add_message(request, messages.ERROR,
-                                 'Invalid credentials, try again')
-            return render(request, 'authentification/login.html', context, status=401)
-
-        login(request, user)
-
-        messages.add_message(request, messages.SUCCESS,
-                             f'Welcome {user.username}')
-
-        return redirect(reverse('home'))
-
+    # return JsonResponse({"error": "Invalid request"}, status=405)
     return render(request, 'authentification/login.html')
+
 
 
 

@@ -125,7 +125,10 @@ AUTH_USER_MODEL = "authentification.User"
 # STATIC_FILES_DIRS = [os.path.join(BASE_DIR, 'todosite/static')]
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'todosite/static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# For deployment (collect static files in one place)
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
